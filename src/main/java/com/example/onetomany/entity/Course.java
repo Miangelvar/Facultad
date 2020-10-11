@@ -10,15 +10,19 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
-public class Student {
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-//    @ManyToMany(mappedBy = "students")
+//    @ManyToMany
+//    @JoinTable(name = "inscription",
+//    joinColumns = @JoinColumn(name = "course_id"),
+//            inverseJoinColumns = @JoinColumn(name = "student_id")
+//    )
     @JsonIgnore
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "course")
     private Set<Inscription> inscriptions;
 }

@@ -4,11 +4,13 @@ import com.example.onetomany.entity.Faculty;
 import com.example.onetomany.service.FacultyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/faculties")
@@ -31,7 +33,7 @@ public class FacultyController {
         return faculty.get();
     }
 
-    @PostMapping
+    @PostMapping()
     public void save(@RequestBody Faculty newFaculty) {
         facultyService.save(newFaculty);
     }
@@ -39,6 +41,21 @@ public class FacultyController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable("id") Long id) {
         facultyService.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public void updateById(@RequestBody Faculty newFaculty, @PathVariable Long id) {
+        facultyService.findById(id)
+            .map(faculty -> {
+                faculty.setName(newFaculty.getName());
+                facultyService.save(faculty);
+                return null;
+            })
+            .orElseGet(() -> {
+                newFaculty.setId(id);
+                facultyService.save(newFaculty);
+                return null;
+            });
     }
 
 }
