@@ -13,7 +13,7 @@ import java.util.List;
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 //@Setter
 //@Getter
-public class Faculty {
+public class Faculty{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

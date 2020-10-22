@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @NoArgsConstructor
-public class Inscription {
+public class Inscription{
 
     @EmbeddedId
     private InscriptionId id = new InscriptionId();
